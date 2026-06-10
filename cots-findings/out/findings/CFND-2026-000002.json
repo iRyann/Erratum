@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.6.0",
+  "id": "CFND-2026-000002",
+  "modified": "2026-06-10T20:49:29Z",
+  "published": "2026-06-10T20:49:29Z",
+  "summary": "bug(list)",
+  "details": "",
+  "aliases": [],
+  "affected": [
+    {
+      "package": {
+        "ecosystem": "GitHub",
+        "name": "iRyann/oh-my-git",
+        "purl": "pkg:github/iRyann/oh-my-git"
+      },
+      "database_specific": {
+        "version_confidence": 0.0
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://github.com/iRyann/oh-my-git/issues/53"
+    }
+  ],
+  "database_specific": {
+    "finding_class": "functional",
+    "functional_severity": "minor",
+    "upstream_status": "open",
+    "workaround_available": false,
+    "workaround_summary": null,
+    "symptom_keywords": [],
+    "evidence_refs": [
+      "sha256:fc01aa43bf98a4da6fdbad45af2c80998f8996f955051c9baf790334dfd17211"
+    ],
+    "extraction": {
+      "extractor_id": "github-issues-extractor",
+      "extractor_version": "0.1.0",
+      "confidence": 0.95,
+      "model_id": null,
+      "prompt_version": null,
+      "enrichment_used": false,
+      "source_spans": [
+        {
+          "evidence": "sha256:fc01aa43bf98a4da6fdbad45af2c80998f8996f955051c9baf790334dfd17211",
+          "loc": "issues[1].title|body"
+        }
+      ]
+    },
+    "ingestion": {
+      "status": "review_high",
+      "tier": "A",
+      "decided_by": null,
+      "decided_at": null,
+      "rationale": null
+    }
+  }
+}

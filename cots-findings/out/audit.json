@@ -1,0 +1,24 @@
+{
+  "purl": "pkg:github/iRyann/oh-my-git",
+  "plugin": {
+    "id": "github-issues",
+    "version": "0.1.0"
+  },
+  "extractor": {
+    "id": "github-issues-extractor",
+    "version": "0.1.0",
+    "deterministic": true
+  },
+  "decisions": [
+    {
+      "finding_id": "CFND-2026-000001",
+      "status": "review_high",
+      "rationale": "tier A mais ranges vides"
+    },
+    {
+      "finding_id": "CFND-2026-000002",
+      "status": "review_high",
+      "rationale": "tier A mais ranges vides"
+    }
+  ]
+}
