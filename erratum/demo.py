@@ -1,7 +1,8 @@
 """Démo bout-en-bout : SBOM(purl) → collecte → preuves → extraction → gate.
 
-Usage : python -m cots_findings.demo pkg:github/<owner>/<repo> [workdir]
+Usage : python -m erratum.demo pkg:github/<owner>/<repo> [workdir]
 """
+
 from __future__ import annotations
 
 import json
@@ -30,8 +31,10 @@ def main() -> None:
     result = plugin.collect(purl, cursor=None)
     for d in result.diagnostics:
         print(f"  [diag:{d.level}] {d.code}: {d.message}")
-    print(f"  preuves archivées : {len(result.evidences)}"
-          f" | curseur suivant : {result.next_cursor.state}")
+    print(
+        f"  preuves archivées : {len(result.evidences)}"
+        f" | curseur suivant : {result.next_cursor.state}"
+    )
 
     extractor = GitHubIssuesExtractor(store)
     all_findings = []
@@ -42,26 +45,38 @@ def main() -> None:
 
     decisions = []
     for f in all_findings:
-        d = evaluate(f, deterministic=extractor.deterministic, tier=plugin.manifest.tier)
+        d = evaluate(
+            f, deterministic=extractor.deterministic, tier=plugin.manifest.tier
+        )
         f.ingestion_status = d.status
         decisions.append(d)
         (findings_dir / f"{f.id}.json").write_text(f.to_json(), encoding="utf-8")
 
-    print("[gate]   " + ", ".join(f"{k}={v}" for k, v in Counter(d.status for d in decisions).items()))
+    print(
+        "[gate]   "
+        + ", ".join(f"{k}={v}" for k, v in Counter(d.status for d in decisions).items())
+    )
     print()
     for f, d in list(zip(all_findings, decisions))[:5]:
         kw = ",".join(f.symptom_keywords) or "-"
-        print(f"  {f.id}  [{f.finding_class}/{f.functional_severity}/{f.upstream_status}]"
-              f" → {d.status}\n      {f.summary[:80]}\n      mots-clés: {kw} | {d.rationale}")
+        print(
+            f"  {f.id}  [{f.finding_class}/{f.functional_severity}/{f.upstream_status}]"
+            f" → {d.status}\n      {f.summary[:80]}\n      mots-clés: {kw} | {d.rationale}"
+        )
 
     audit = {
         "purl": purl,
         "plugin": {"id": plugin.manifest.id, "version": plugin.manifest.version},
-        "extractor": {"id": extractor.id, "version": extractor.version,
-                      "deterministic": extractor.deterministic},
+        "extractor": {
+            "id": extractor.id,
+            "version": extractor.version,
+            "deterministic": extractor.deterministic,
+        },
         "decisions": [d.__dict__ for d in decisions],
     }
-    (workdir / "audit.json").write_text(json.dumps(audit, indent=2, ensure_ascii=False), encoding="utf-8")
+    (workdir / "audit.json").write_text(
+        json.dumps(audit, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
     print(f"\n[audit]  chaîne de décision écrite dans {workdir/'audit.json'}")
 
 
