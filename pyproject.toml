@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[project]
+dynamic = ["version"]
+name = "Erratum"
+requires-python = ">=3.11.9"
+authors = [
+  {name = "Ryan Bouchou", email = "ryanbouchou.pro@gmail.com"},
+]
+maintainers = [
+  {name = "Ryan Bouchou", email = "ryanbouchou.pro@gmail.com"}
+]
+description = "COTS multi-source functional bug collector."
+readme="README.md"
+license = {text = "Apache-2.0"}
+license-files = ["LICEN[CS]E.*"]
+keywords = ["bug-finder", "cots"]
+classifiers = [
+  "Development Status :: 1 - Alpha"
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3"
+  "Topic :: Software Development :: Bug Tracking"
+]
+
+[project.urls]
+Repository = "https://gitlab.com/iRyann/Erratum"
+"Bug Tracker" = "https://gitlab.com/iRyann/Erratum/-/boards"
+
+[tool.ruff]
+line-length = 79
+
+[tool.ruff.lint]
+extend-select = ["E501"]
+
+[tool.mypy]
+python_version = "3.11.9"
+warn_return_any = true
+warn_unused_configs = true
